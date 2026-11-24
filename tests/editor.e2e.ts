@@ -245,7 +245,12 @@ test('abre la sección de reseñas por defecto y codifica su enlace en el QR des
 test('editor de invitado funciona con API suspendida sin despertarla', async ({ page }) => {
   let apiRequests = 0
   await page.route('**/api/**', async (route) => { apiRequests++; await route.abort('failed') })
-  await openEditor(page)
+  await page.addInitScript(() => localStorage.setItem('rc-last-account', JSON.stringify({ id: 'old-account', email: 'guest@example.test' })))
+  await page.goto('/proyectos')
+  await expect(page.getByRole('heading', { name: 'Mis proyectos', exact: true })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Iniciar sesión' })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: 'QR dinámicos' })).toHaveCount(0)
+  await openEditor(page, '/editor?nuevo')
   await page.getByRole('button', { name: 'Vincular negocio', exact: true }).click()
   await page.getByLabel('Enlace de reseñas o Place ID').fill(
     'https://www.google.com/maps/place/San+Francisco+International+Airport/data=!4m2!3m1!1s0x808f778c55555555:0xa4f25c571acded3f')

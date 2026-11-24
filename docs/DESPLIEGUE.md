@@ -6,7 +6,7 @@ ReviewCanvas se divide en un sitio estático, una API sin archivos persistentes 
 
 La portada, el editor, las plantillas, el historial local y las exportaciones se ejecutan en el navegador. Como invitado, el editor guarda en IndexedDB y omite las solicitudes de sesión. Acepta un enlace de reseñas directo o un enlace completo de Maps que identifique el negocio. El QR estático codifica ese destino y continúa funcionando cuando se suspenden los servicios de ReviewCanvas.
 
-La API interviene al iniciar sesión, sincronizar, ampliar enlaces cortos de Maps o usar QR dinámicos. Con un proyecto abierto previamente, el editor recupera primero la copia local. Un proyecto guardado únicamente en otro dispositivo requiere conexión para la primera descarga. No configures pings para mantener Render despierto.
+La versión pública prescinde de las cuentas. Si habilitas las cuentas para una instalación con API, esta interviene al iniciar sesión, sincronizar y usar QR dinámicos. La API también puede ampliar enlaces cortos de Maps. No configures pings para mantener Render despierto.
 
 ## 1. PostgreSQL en Neon
 
@@ -64,6 +64,7 @@ Render suspende un Web Service gratuito tras 15 minutos sin tráfico. La primera
 | Variable de compilación | `NODE_VERSION=22` |
 | Variable de compilación | `NPM_CONFIG_IGNORE_SCRIPTS=true` |
 | Variable de compilación | `VITE_ENABLE_PLACES_SEARCH=false` |
+| Variable de compilación | `VITE_ENABLE_CLOUD_ACCOUNTS=false` |
 
 3. En las variables del **runtime de producción de Pages Functions** configura `API_ORIGIN=https://<tu-servicio>.onrender.com` y `API_PROXY_SECRET` como secreto. Mantén las dos variables vacías en Preview para que las ramas de vista previa sirvan el editor local sin conectar a producción.
 4. Vuelve a desplegar. `_routes.json` limita las funciones a `/api/*` y `/r/*`. Las rutas de editor y proyectos regresan al HTML de la aplicación. Los recursos con hash usan caché inmutable y las respuestas de cuenta y archivos privados usan `no-store`.
@@ -74,8 +75,8 @@ El navegador usa el mismo dominio para la app y su API. La función reenvía la 
 
 1. Abre `/editor?nuevo` y crea un QR con un enlace directo o completo de Maps. Comprueba la exportación y recarga el proyecto sin iniciar sesión.
 2. Abre `https://<tu-proyecto>.pages.dev/api/health` para probar el proxy y Neon. Comprueba `/healthz` en Render para aislar un problema de arranque.
-3. Registra una cuenta de prueba. Importa un PNG en el editor y guarda el proyecto. Confirma que el archivo aparece en el bucket privado y que una segunda cuenta no puede acceder.
-4. Cierra sesión y verifica en una ventana privada que la navegación como invitado funciona. Si Render está suspendido, el editor local y el QR deben seguir funcionando.
+3. Verifica en una ventana privada que «Mis proyectos» y «Mi marca» se abren sin cuenta. Si Render está suspendido, el editor y el QR deben seguir funcionando.
+4. Si has habilitado `VITE_ENABLE_CLOUD_ACCOUNTS=true`, registra una cuenta de prueba, importa un PNG en el editor y guarda el proyecto. Confirma que el archivo aparece en el bucket privado y que una segunda cuenta no puede acceder.
 5. Para una revisión visual, imprime el cartel de prueba o escanéalo con otra pantalla y comprueba el destino con tu navegador móvil.
 
 ### Presupuesto de lanzamiento

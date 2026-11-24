@@ -14,7 +14,7 @@ const faq = [
   ['¿Mi código seguirá funcionando después de descargarlo?', 'El QR estático abre tu enlace de Google directamente. Cuando actualices el destino, tendrás que generar y descargar un código nuevo.'],
   ['¿Qué puedo cambiar en una plantilla?', 'Cada diseño contiene capas de texto, ilustraciones, fondo y QR. Puedes mover, recolorear o sustituir las que quieras.'],
   ['¿Puedo preparar un cartel para imprenta?', 'Puedes elegir dimensiones en milímetros, centímetros o pulgadas, añadir sangrado y descargar un PDF o una imagen a 300 DPI.'],
-  ['¿Dónde se guardan mis diseños?', 'En el navegador donde editas. Si inicias sesión, puedes sincronizar tus proyectos con tu cuenta y abrirlos en otro dispositivo.'],
+  ['¿Dónde se guardan mis diseños?', 'Se guardan en el navegador donde editas. Para abrir un diseño en otro dispositivo, expórtalo en JSON e impórtalo desde Mis proyectos.'],
 ]
 
 export default function Landing() {

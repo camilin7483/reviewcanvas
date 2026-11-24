@@ -11,8 +11,11 @@ const sessionKey = 'rc-last-account'
 const mediaCache = new Map<string, Promise<string>>()
 const savedMedia = new Map<string, Promise<string>>()
 
+export const cloudAccountsEnabled = import.meta.env.VITE_ENABLE_CLOUD_ACCOUNTS === 'true'
+
 // Se usa para decidir si conviene consultar la nube. La API autentica mediante cookie.
 export function accountHint(): Account | null {
+  if (!cloudAccountsEnabled) return null
   try { return JSON.parse(localStorage.getItem(sessionKey) ?? 'null') as Account | null } catch { return null }
 }
 

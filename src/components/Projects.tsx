@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { ArrowRight, BarChart3, Cloud, Copy, Download, FolderOpen, Heart, LayoutGrid, LogOut, Plus, QrCode, Search, SwatchBook, Trash2 } from 'lucide-react'
-import { accountHint, api, type ProjectSummary, type Account, type DynamicCode, type ScanSummary } from '../api'
+import { accountHint, api, cloudAccountsEnabled, type ProjectSummary, type Account, type DynamicCode, type ScanSummary } from '../api'
 import { brandSchema, defaultQr, validateProject, type Brand, type Project } from '../model'
 import { deleteBrand, deleteProject, readBrands, readProjects, writeBrand, writeProject } from '../storage'
 import { AccountDialog } from './Account'
@@ -127,13 +127,14 @@ export default function Projects() {
   const folders = [...new Set(projects.map((project) => project.folder).filter(Boolean))].sort()
   return <div className="dashboard">
     <header className="dashboard-header"><div className="site-container site-nav"><BrandLogo />
-      <div className="site-nav-end">{account ? <><span className="account-email">{account.email}</span>
+      {cloudAccountsEnabled && <div className="site-nav-end">{account ? <><span className="account-email">{account.email}</span>
         <IconButton label="Cerrar sesión" onClick={() => { void api.logout().then(() => location.reload()).catch((error) => setStatus(warn(error))) }}><LogOut size={18} /></IconButton></>
-        : <button type="button" className="button button-outline" onClick={() => setAuth(true)}><Cloud size={17} /> Iniciar sesión</button>}</div>
+        : <button type="button" className="button button-outline" onClick={() => setAuth(true)}><Cloud size={17} /> Iniciar sesión</button>}</div>}
     </div></header>
     <main className="site-container dashboard-main">
       <nav className="segmented dashboard-tabs" aria-label="Panel de usuario">
-        {([['projects', 'Proyectos', LayoutGrid], ['brand', 'Mi marca', SwatchBook], ['stats', 'QR dinámicos', BarChart3]] as const).map(([key, label, Icon]) =>
+        {([['projects', 'Proyectos', LayoutGrid], ['brand', 'Mi marca', SwatchBook], ['stats', 'QR dinámicos', BarChart3]] as const)
+          .filter(([key]) => cloudAccountsEnabled || key !== 'stats').map(([key, label, Icon]) =>
           <button type="button" key={key} aria-pressed={tab === key} onClick={() => setTab(key)}><Icon size={17} /> {label}</button>)}
       </nav>
       {status && <p className="dashboard-notice" role="status">{status}<button className="text-button" onClick={() => setStatus('')}>Cerrar</button></p>}
@@ -188,9 +189,9 @@ export default function Projects() {
             <IconButton label="Eliminar marca" onClick={() => void removeBrand(brand)}><Trash2 size={16} /></IconButton></div>
         </article>)}</div>
       </>}
-      {tab === 'stats' && <Statistics account={account} logIn={() => setAuth(true)} />}
+      {cloudAccountsEnabled && tab === 'stats' && <Statistics account={account} logIn={() => setAuth(true)} />}
     </main>
-    {auth && <AccountDialog onAccount={setAccount} close={() => setAuth(false)} />}
+    {cloudAccountsEnabled && auth && <AccountDialog onAccount={setAccount} close={() => setAuth(false)} />}
     {createBrand && <BrandForm initial={typeof createBrand === 'object' ? createBrand : undefined} save={saveBrand} close={() => showBrand(false)} />}
     {editing && <Dialog title="Organizar proyecto" onClose={() => setEditing(undefined)}>
       <form className="dialog-body field-stack" onSubmit={(event) => {

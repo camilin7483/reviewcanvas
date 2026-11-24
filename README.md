@@ -17,6 +17,8 @@ Cartel de muestra diseñado para **Mi Solar**, una tienda de artesanías de Bogo
 
 [Guía detallada de despliegue](docs/DESPLIEGUE.md) para Cloudflare Pages, Render con Docker, Neon y Supabase Storage. El editor invitado guarda los proyectos localmente y permite exportar con la API suspendida.
 
+La versión pública abre directamente sin cuenta. Los proyectos se guardan en el navegador y se pueden exportar en JSON para abrirlos en otro dispositivo. Las instalaciones con API pueden habilitar cuentas y QR dinámicos mediante `VITE_ENABLE_CLOUD_ACCOUNTS=true` al compilar el frontend.
+
 ## Arranque local
 
 Requisitos para el editor: Node.js 22.12 o posterior y npm. La cuenta, la sincronización y los QR dinámicos también requieren PostgreSQL.
