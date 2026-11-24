@@ -1,0 +1,60 @@
+name: Verificar ReviewCanvas
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reviewcanvas-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: reviewcanvas
+          POSTGRES_PASSWORD: local-ci-only
+          POSTGRES_DB: reviewcanvas
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U reviewcanvas -d reviewcanvas"
+          --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      DATABASE_URL: postgresql://reviewcanvas:local-ci-only@127.0.0.1:5432/reviewcanvas
+      TEST_DATABASE_URL: postgresql://reviewcanvas:local-ci-only@127.0.0.1:5432/reviewcanvas
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run db:generate
+      - run: npm run db:migrate
+      - run: npm test
+      - run: npm run build
+      - name: Verificar artefacto estático
+        run: |
+          test -s dist/index.html
+          test -s dist/_routes.json
+          test -s dist/_headers
+          test -s dist/_redirects
+          test -s dist/04-plantillas/cafeteria.svg
+          test "$(du -sm dist | cut -f1)" -lt 15
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - name: Construir y comprobar el contenedor
+        run: |
+          docker build -t reviewcanvas-ci .
+          docker run --rm -d --name reviewcanvas-ci -p 127.0.0.1:4174:4174 reviewcanvas-ci
+          trap 'docker stop reviewcanvas-ci >/dev/null 2>&1 || true' EXIT
+          curl --fail --retry 6 --retry-delay 1 --retry-connrefused http://127.0.0.1:4174/healthz

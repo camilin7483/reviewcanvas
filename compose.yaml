@@ -1,0 +1,27 @@
+services:
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: reviewcanvas
+      POSTGRES_USER: reviewcanvas
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Configura POSTGRES_PASSWORD en .env}
+    volumes:
+      - reviewcanvas-db:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U reviewcanvas -d reviewcanvas"]
+      interval: 4s
+      timeout: 4s
+      retries: 15
+  app:
+    build: .
+    environment:
+      DATABASE_URL: postgresql://reviewcanvas:${POSTGRES_PASSWORD:?Configura POSTGRES_PASSWORD en .env}@db:5432/reviewcanvas
+      APP_ORIGIN: ${DOCKER_APP_ORIGIN:-http://127.0.0.1:5173}
+      GOOGLE_PLACES_API_KEY: ${GOOGLE_PLACES_API_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:4174:4174"
+volumes:
+  reviewcanvas-db:

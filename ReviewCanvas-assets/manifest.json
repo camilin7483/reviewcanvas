@@ -1,0 +1,341 @@
+{
+  "brand": "ReviewCanvas",
+  "assets": [
+    {
+      "path": "01-marca/favicon.png",
+      "bytes": 4154
+    },
+    {
+      "path": "01-marca/favicon.svg",
+      "bytes": 619
+    },
+    {
+      "path": "01-marca/isotipo-blanco.png",
+      "bytes": 2287
+    },
+    {
+      "path": "01-marca/isotipo-blanco.svg",
+      "bytes": 518
+    },
+    {
+      "path": "01-marca/isotipo-oscuro.png",
+      "bytes": 2983
+    },
+    {
+      "path": "01-marca/isotipo-oscuro.svg",
+      "bytes": 518
+    },
+    {
+      "path": "01-marca/isotipo-principal.png",
+      "bytes": 3042
+    },
+    {
+      "path": "01-marca/isotipo-principal.svg",
+      "bytes": 518
+    },
+    {
+      "path": "01-marca/logo-horizontal-blanco.png",
+      "bytes": 8749
+    },
+    {
+      "path": "01-marca/logo-horizontal-blanco.svg",
+      "bytes": 696
+    },
+    {
+      "path": "01-marca/logo-horizontal-oscuro.png",
+      "bytes": 12388
+    },
+    {
+      "path": "01-marca/logo-horizontal-oscuro.svg",
+      "bytes": 696
+    },
+    {
+      "path": "01-marca/logo-horizontal-principal.png",
+      "bytes": 13283
+    },
+    {
+      "path": "01-marca/logo-horizontal-principal.svg",
+      "bytes": 696
+    },
+    {
+      "path": "02-web/editor-escritorio-concepto.webp",
+      "bytes": 31440
+    },
+    {
+      "path": "02-web/editor-movil-concepto.webp",
+      "bytes": 46208
+    },
+    {
+      "path": "02-web/hero-vector.png",
+      "bytes": 136366
+    },
+    {
+      "path": "02-web/hero-vector.svg",
+      "bytes": 56438
+    },
+    {
+      "path": "02-web/tarjeta-mesa.webp",
+      "bytes": 53076
+    },
+    {
+      "path": "02-web/tarjetas-impresas.webp",
+      "bytes": 67012
+    },
+    {
+      "path": "03-mockups/adhesivo-cristal.webp",
+      "bytes": 41230
+    },
+    {
+      "path": "03-mockups/barberia.webp",
+      "bytes": 62974
+    },
+    {
+      "path": "03-mockups/cafeteria.webp",
+      "bytes": 85870
+    },
+    {
+      "path": "03-mockups/cartel-enmarcado.webp",
+      "bytes": 50670
+    },
+    {
+      "path": "03-mockups/hotel.webp",
+      "bytes": 63060
+    },
+    {
+      "path": "03-mockups/identidad-ambientada.webp",
+      "bytes": 56284
+    },
+    {
+      "path": "03-mockups/placa-pared.webp",
+      "bytes": 58624
+    },
+    {
+      "path": "03-mockups/restaurante.webp",
+      "bytes": 78916
+    },
+    {
+      "path": "03-mockups/servicio-tecnico.webp",
+      "bytes": 66560
+    },
+    {
+      "path": "03-mockups/tarjeta-posavasos.webp",
+      "bytes": 51590
+    },
+    {
+      "path": "03-mockups/tienda.webp",
+      "bytes": 51994
+    },
+    {
+      "path": "04-plantillas/barberia.png",
+      "bytes": 27987
+    },
+    {
+      "path": "04-plantillas/barberia.svg",
+      "bytes": 28711
+    },
+    {
+      "path": "04-plantillas/cafeteria.png",
+      "bytes": 30040
+    },
+    {
+      "path": "04-plantillas/cafeteria.svg",
+      "bytes": 28825
+    },
+    {
+      "path": "04-plantillas/floristeria.png",
+      "bytes": 30102
+    },
+    {
+      "path": "04-plantillas/floristeria.svg",
+      "bytes": 28872
+    },
+    {
+      "path": "04-plantillas/hotel.png",
+      "bytes": 28148
+    },
+    {
+      "path": "04-plantillas/hotel.svg",
+      "bytes": 28693
+    },
+    {
+      "path": "04-plantillas/minimalista.png",
+      "bytes": 28478
+    },
+    {
+      "path": "04-plantillas/minimalista.svg",
+      "bytes": 28679
+    },
+    {
+      "path": "04-plantillas/panaderia.png",
+      "bytes": 29247
+    },
+    {
+      "path": "04-plantillas/panaderia.svg",
+      "bytes": 28684
+    },
+    {
+      "path": "04-plantillas/premium.png",
+      "bytes": 30104
+    },
+    {
+      "path": "04-plantillas/premium.svg",
+      "bytes": 28781
+    },
+    {
+      "path": "04-plantillas/restaurante.png",
+      "bytes": 28731
+    },
+    {
+      "path": "04-plantillas/restaurante.svg",
+      "bytes": 28775
+    },
+    {
+      "path": "04-plantillas/tecnologia.png",
+      "bytes": 29636
+    },
+    {
+      "path": "04-plantillas/tecnologia.svg",
+      "bytes": 28797
+    },
+    {
+      "path": "04-plantillas/tienda.png",
+      "bytes": 29301
+    },
+    {
+      "path": "04-plantillas/tienda.svg",
+      "bytes": 28768
+    },
+    {
+      "path": "05-decoraciones/arco.svg",
+      "bytes": 152
+    },
+    {
+      "path": "05-decoraciones/bolsa.svg",
+      "bytes": 229
+    },
+    {
+      "path": "05-decoraciones/burbuja.svg",
+      "bytes": 278
+    },
+    {
+      "path": "05-decoraciones/circulo.svg",
+      "bytes": 140
+    },
+    {
+      "path": "05-decoraciones/corazon.svg",
+      "bytes": 183
+    },
+    {
+      "path": "05-decoraciones/destello.svg",
+      "bytes": 174
+    },
+    {
+      "path": "05-decoraciones/estrella-contorno.svg",
+      "bytes": 239
+    },
+    {
+      "path": "05-decoraciones/estrella.svg",
+      "bytes": 184
+    },
+    {
+      "path": "05-decoraciones/flecha-curva.svg",
+      "bytes": 236
+    },
+    {
+      "path": "05-decoraciones/flecha-simple.svg",
+      "bytes": 225
+    },
+    {
+      "path": "05-decoraciones/forma-organica.svg",
+      "bytes": 204
+    },
+    {
+      "path": "05-decoraciones/hoja.svg",
+      "bytes": 260
+    },
+    {
+      "path": "05-decoraciones/marco-escaneo.svg",
+      "bytes": 256
+    },
+    {
+      "path": "05-decoraciones/marco-redondeado.svg",
+      "bytes": 191
+    },
+    {
+      "path": "05-decoraciones/ondas.svg",
+      "bytes": 246
+    },
+    {
+      "path": "05-decoraciones/ramita.svg",
+      "bytes": 332
+    },
+    {
+      "path": "05-decoraciones/semicirculo.svg",
+      "bytes": 145
+    },
+    {
+      "path": "05-decoraciones/subrayado.svg",
+      "bytes": 192
+    },
+    {
+      "path": "05-decoraciones/taza.svg",
+      "bytes": 284
+    },
+    {
+      "path": "05-decoraciones/ubicacion.svg",
+      "bytes": 237
+    },
+    {
+      "path": "06-fondos/arena.svg",
+      "bytes": 143
+    },
+    {
+      "path": "06-fondos/blanco.svg",
+      "bytes": 143
+    },
+    {
+      "path": "06-fondos/carbon.svg",
+      "bytes": 143
+    },
+    {
+      "path": "06-fondos/crema.svg",
+      "bytes": 143
+    },
+    {
+      "path": "06-fondos/curvas-crema.svg",
+      "bytes": 260
+    },
+    {
+      "path": "06-fondos/lineas-arena.svg",
+      "bytes": 380
+    },
+    {
+      "path": "06-fondos/marco-editorial.svg",
+      "bytes": 244
+    },
+    {
+      "path": "06-fondos/puntos-salvia.svg",
+      "bytes": 343
+    },
+    {
+      "path": "06-fondos/salvia.svg",
+      "bytes": 143
+    },
+    {
+      "path": "06-fondos/terracota.svg",
+      "bytes": 143
+    },
+    {
+      "path": "07-referencias/exploracion-interfaz-violeta.webp",
+      "bytes": 186138
+    },
+    {
+      "path": "07-referencias/moodboard-fotografico.webp",
+      "bytes": 421472
+    },
+    {
+      "path": "07-referencias/sectores-comerciales.webp",
+      "bytes": 368182
+    }
+  ]
+}

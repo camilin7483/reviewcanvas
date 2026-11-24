@@ -1,0 +1,14 @@
+node_modules
+dist
+.env
+.git
+test-results
+playwright-report
+*.tsbuildinfo
+
+server/generated/
+.env.*
+.dev.vars*
+ReviewCanvas-assets/
+docs/
+*.png

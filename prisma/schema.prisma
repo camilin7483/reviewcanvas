@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../server/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String        @id @default(uuid()) @db.Uuid
+  email        String        @unique @db.VarChar(254)
+  passwordHash String        @db.VarChar(220)
+  createdAt    DateTime      @default(now())
+  sessions     Session[]
+  projects     Project[]
+  brands       Brand[]
+  codes        DynamicCode[]
+  media        MediaObject[]
+}
+
+model Session {
+  id        String   @id @db.Char(64)
+  ownerId   String   @db.Uuid
+  expiresAt DateTime
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@index([ownerId, expiresAt])
+  @@index([expiresAt])
+}
+
+model Project {
+  id        String   @db.Uuid
+  ownerId   String   @db.Uuid
+  data      Json
+  updatedAt DateTime
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@id([ownerId, id])
+  @@index([ownerId, updatedAt])
+}
+
+model Brand {
+  id        String   @db.Uuid
+  ownerId   String   @db.Uuid
+  data      Json
+  updatedAt DateTime @updatedAt
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@id([ownerId, id])
+}
+
+model DynamicCode {
+  id        String       @id @default(uuid()) @db.Uuid
+  slug      String       @unique @db.VarChar(28)
+  ownerId   String       @db.Uuid
+  label     String       @db.VarChar(100)
+  target    String       @db.VarChar(1200)
+  createdAt DateTime     @default(now())
+  owner     User         @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  scans     ScanBucket[]
+
+  @@index([ownerId, createdAt])
+}
+
+model ScanBucket {
+  codeId String      @db.Uuid
+  day    DateTime    @db.Date
+  device String      @db.VarChar(16)
+  count  Int         @default(0)
+  code   DynamicCode @relation(fields: [codeId], references: [id], onDelete: Cascade)
+
+  @@id([codeId, day, device])
+}
+
+model MediaObject {
+  ownerId    String    @db.Uuid
+  digest     String    @db.Char(64)
+  mime       String    @db.VarChar(32)
+  bytes      Int
+  createdAt  DateTime  @default(now())
+  uploadedAt DateTime?
+  owner      User      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@id([ownerId, digest])
+}
