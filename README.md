@@ -6,9 +6,9 @@ ReviewCanvas es un estudio web en español para diseñar carteles con códigos Q
 
 ![Editor de ReviewCanvas con el cartel de Mi Solar](docs/media/editor-mi-solar.webp)
 
-Cartel de muestra diseñado para **Mi Solar**, una tienda de artesanías de Bogotá. El QR del PNG a 300 DPI se decodificó con ZXing y el enlace abrió «Todas las opiniones» en Google Maps móvil. La demostración es independiente. [Ubicación publicada por Mi Solar](https://www.misolar.co/tienda-fisica/)
+Cartel de muestra diseñado para **Mi Solar**, una tienda de artesanías de Bogotá. El video de 20 segundos recorre el lienzo vacío, la composición del cartel, la generación del QR y la apertura de «Todas las opiniones» en Google Maps. El QR del PNG a 300 DPI se comprobó con ZBar. La demo también muestra cómo abrir «Escribir una reseña» desde la ficha. La demostración es independiente. [Ubicación publicada por Mi Solar](https://www.misolar.co/tienda-fisica/)
 
-- [Video corto](docs/media/demo-mi-solar.mp4)
+- [Video de 20 segundos](docs/media/demo-mi-solar.mp4)
 - [Cartel con QR de muestra](docs/media/cartel-mi-solar.png)
 - [Diseño editable](docs/media/mi-solar.reviewcanvas.json)
 - [Abrir reseñas en Google Maps](https://www.google.com/maps/place//data=!4m4!3m3!1s0x8e3f99af5a71ea65:0x3d3d9b6c33081be5!9m1!1b1)
