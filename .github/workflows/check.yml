@@ -54,6 +54,7 @@ jobs:
       - run: npm run test:e2e
       - name: Construir y comprobar el contenedor
         run: |
+          POSTGRES_PASSWORD=local-ci-only docker compose config --quiet
           docker build -t reviewcanvas-ci .
           docker run --rm -d --name reviewcanvas-ci -p 127.0.0.1:4174:4174 reviewcanvas-ci
           trap 'docker stop reviewcanvas-ci >/dev/null 2>&1 || true' EXIT

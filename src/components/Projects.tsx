@@ -44,7 +44,7 @@ export default function Projects() {
   useEffect(() => {
     if (!account) return
     let mounted = true
-    void Promise.all([api.projects(), readProjects(account.id), api.brands(), readBrands(account.id)]).then(async ([remote, local, remoteBrands, localBrands]) => {
+    void Promise.all([api.projects(), readProjects(account.id)]).then(([remote, local]) => {
       if (!mounted) return
       const cloud = new Map<string, ListedProject>(remote.map((project) => [project.id, project]))
       const owned = new Set(cloud.keys())
@@ -56,12 +56,21 @@ export default function Projects() {
       if (!mounted) return
       setProjects(combined)
       setCloudIds([...owned])
-      const joinedBrands = Array.from(new Map([...localBrands, ...remoteBrands].map((value) => [value.id, value])).values())
-      await Promise.all(remoteBrands.map((brand) => writeBrand(brand, account.id)))
-      if (mounted) setBrands(joinedBrands)
     }).catch((error) => { if (mounted) setStatus(warn(error)) })
     return () => { mounted = false }
   }, [account])
+
+  useEffect(() => {
+    if (!account || tab !== 'brand') return
+    let mounted = true
+    void Promise.all([api.brands(), readBrands(account.id)]).then(async ([remote, local]) => {
+      if (!mounted) return
+      const merged = Array.from(new Map([...local, ...remote].map((brand) => [brand.id, brand])).values())
+      await Promise.all(remote.map((brand) => writeBrand(brand, account.id)))
+      if (mounted) setBrands(merged)
+    }).catch((error) => { if (mounted) setStatus(warn(error)) })
+    return () => { mounted = false }
+  }, [account, tab])
 
   async function save(project: Project) {
     await writeProject(project)

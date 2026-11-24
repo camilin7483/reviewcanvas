@@ -43,7 +43,7 @@ Abre http://127.0.0.1:5173. El editor invitado, IndexedDB, la comprobación ZXin
 
 ### Docker Compose
 
-Rellena `POSTGRES_PASSWORD` y configura la URL de la base Compose en `DATABASE_URL_DIRECT`. Arranca la base, aplica las migraciones y después inicia la API. El frontend local se sirve con Vite.
+Rellena `POSTGRES_PASSWORD` y configura `DATABASE_URL_DIRECT` con la base Compose en `127.0.0.1:5436`. Arranca la base, aplica las migraciones y después inicia la API. El frontend local se sirve con Vite.
 
 ```bash
 docker compose up -d db

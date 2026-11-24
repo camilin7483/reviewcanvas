@@ -41,6 +41,7 @@ export function useDocument(id: string | undefined) {
       const chosen = templates.find((template) => template.id === params.get('plantilla')) ?? firstTemplate
       let value: Project | undefined
       const hint = accountHint()
+      let alreadyRetrieved = false
       if (id) {
         value = await readProject(id, hint?.id)
         if (!value && hint) {
@@ -48,7 +49,10 @@ export function useDocument(id: string | undefined) {
           if (session.account) {
             const remote = await api.project(id).catch(() => undefined)
             value = remote?.project
-            if (value) await writeProject(value, session.account.id)
+            if (value) {
+              await writeProject(value, session.account.id)
+              alreadyRetrieved = true
+            }
           }
         }
         if (!value) throw new Error('Ese proyecto no está disponible en este navegador.')
@@ -69,11 +73,14 @@ export function useDocument(id: string | undefined) {
       if (hint) void api.account().then(async ({ account }) => {
         if (!mounted || !account) return
         cloud.current = account.id
-        if (id) {
-          const remote = await api.project(id).catch(() => undefined)
+        if (alreadyRetrieved && active.current === value) { setSync('cloud'); return }
+        if (id && !alreadyRetrieved) {
+          const revision = await api.revision(id).catch(() => undefined)
           if (!mounted) return
           const current = active.current
-          if (remote && current && current === value && remote.project.updatedAt > current.updatedAt) {
+          if (revision && current && current === value && revision.updatedAt > current.updatedAt) {
+            const remote = await api.project(id)
+            if (!mounted || active.current !== current) return
             const newer = normalizeReviewTarget(remote.project)
             active.current = newer
             setProject(newer)
@@ -81,7 +88,7 @@ export function useDocument(id: string | undefined) {
             if (mounted && active.current === newer) setSync('cloud')
             return
           }
-          if (remote?.project.updatedAt === active.current?.updatedAt) return
+          if (revision && revision.updatedAt === active.current?.updatedAt) { setSync('cloud'); return }
         }
         if (active.current) persist(active.current)
       }).catch(() => {})

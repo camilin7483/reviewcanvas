@@ -5,6 +5,8 @@ services:
       POSTGRES_DB: reviewcanvas
       POSTGRES_USER: reviewcanvas
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Configura POSTGRES_PASSWORD en .env}
+    ports:
+      - "127.0.0.1:5436:5432"
     volumes:
       - reviewcanvas-db:/var/lib/postgresql
     healthcheck:

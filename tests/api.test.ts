@@ -42,6 +42,8 @@ describe.skipIf(!databaseUrl)('Fastify con PostgreSQL', () => {
     const listed = (await server.inject({ method: 'GET', url: '/api/projects', headers: { cookie: ownerCookie } })).json()
     expect(listed).toMatchObject([{ title: 'Casa Bosque' }])
     expect(listed[0]).not.toHaveProperty('layers')
+    expect((await server.inject({ method: 'GET', url: `${path}/revision`, headers: { cookie: ownerCookie } })).json()).toEqual({ updatedAt: project.updatedAt })
+    expect((await server.inject({ method: 'GET', url: `${path}/revision`, headers: { cookie: otherCookie } })).statusCode).toBe(404)
     expect((await server.inject({ method: 'GET', url: path, headers: { cookie: otherCookie } })).statusCode).toBe(404)
     expect((await server.inject({ method: 'GET', url: path })).statusCode).toBe(401)
     expect((await server.inject({ method: 'DELETE', url: path, headers: { origin: 'https://example.com', cookie: ownerCookie } })).statusCode).toBe(403)

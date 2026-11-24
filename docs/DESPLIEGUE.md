@@ -98,4 +98,4 @@ Si usas un proxy propio, sustituye Pages Functions por el proxy inverso. Quita `
 
 ## Desarrollo local
 
-Con PostgreSQL local, copia `.env.example` a `.env`, genera Prisma y aplica migraciones. Ejecuta `npm run dev` y `npm run dev:api`. Para Docker Compose aplica primero las migraciones a la base Compose usando su URL directa y abre el frontend con Vite. El contenedor de Compose sirve la API en el puerto 4174.
+Con PostgreSQL local, copia `.env.example` a `.env`, genera Prisma y aplica migraciones. Ejecuta `npm run dev` y `npm run dev:api`. Para Docker Compose aplica primero las migraciones a la base Compose usando la URL directa en `127.0.0.1:5436` y abre el frontend con Vite. El contenedor de Compose sirve la API en el puerto 4174.

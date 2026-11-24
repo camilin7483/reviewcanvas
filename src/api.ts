@@ -85,6 +85,7 @@ export const api = {
   },
   async logout() { await request<void>('/auth/logout', { method: 'POST' }); remember(null) },
   projects: () => request<ProjectSummary[]>('/projects'),
+  revision: (id: string) => request<{ updatedAt: string }>(`/projects/${id}/revision`),
   async project(id: string) {
     const remote = await request<CloudProject>(`/projects/${id}`)
     return { ...remote, project: await mapProjectMedia(remote.project, loadImage) }

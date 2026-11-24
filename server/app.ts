@@ -3,6 +3,7 @@ import { resolve } from 'node:path'
 import { timingSafeEqual, randomBytes } from 'node:crypto'
 import { isIP } from 'node:net'
 import { Readable } from 'node:stream'
+import type { ReadableStream as NodeReadableStream } from 'node:stream/web'
 import Fastify, { LogController, type FastifyReply, type FastifyRequest } from 'fastify'
 import cookies from '@fastify/cookie'
 import helmet from '@fastify/helmet'
@@ -160,7 +161,7 @@ export function buildServer(options: { prisma?: PrismaClient; logger?: boolean; 
     if (!user) return
     if (!/^[a-f0-9]{64}$/.test(request.params.digest)) return apiError(reply, 404, 'Imagen no encontrada.')
     const image = await media.get(user.id, request.params.digest)
-    return reply.type(image.mime).send(Readable.fromWeb(image.stream as never))
+    return reply.type(image.mime).send(Readable.fromWeb(image.stream as unknown as NodeReadableStream<Uint8Array>))
   })
 
   async function storedImages<T>(ownerId: string, document: T, mapper: (value: T, convert: (image: string) => Promise<string>) => Promise<T>) {
@@ -186,6 +187,15 @@ export function buildServer(options: { prisma?: PrismaClient; logger?: boolean; 
       FROM "Project" WHERE "ownerId" = ${user.id}::uuid
       ORDER BY "updatedAt" DESC LIMIT 100`
   })
+  app.get<{ Params: { id: string } }>('/api/projects/:id/revision', async (request, reply) => {
+    const user = await owner(request, reply)
+    if (!user) return
+    const id = uuid.safeParse(request.params.id)
+    if (!id.success) return apiError(reply, 400, 'Identificador inválido.')
+    const project = await prisma.project.findUnique({ where: { ownerId_id: { ownerId: user.id, id: id.data } }, select: { updatedAt: true } })
+    return project ?? apiError(reply, 404, 'Proyecto no encontrado.')
+  })
+
   app.get<{ Params: { id: string } }>('/api/projects/:id', async (request, reply) => {
     const user = await owner(request, reply)
     if (!user) return
